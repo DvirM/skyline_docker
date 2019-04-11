@@ -103,7 +103,7 @@ if [ ! -f /skyline/skyline/settings.py.original ]; then
     | sed -e 's/PANORAMA_ENABLED = .*/PANORAMA_ENABLED = True/g' \
     | sed -e "s/WEBAPP_AUTH_USER_PASSWORD = .*/WEBAPP_AUTH_USER_PASSWORD = '$WEBAPP_AUTH_USER_PASSWORD'/g" \
     | sed -e "s/WEBAPP_ALLOWED_IPS = .*/WEBAPP_ALLOWED_IPS = ['127.0.0.1', '$YOUR_OTHER_IP_ADDRESS']/g" \
-    | sed -e "s/SKYLINE_URL = .*/SKYLINE_URL = 'https:\/\/$YOUR_SK YLINE_SERVER_FQDN'/g" \
+    | sed -e "s/SKYLINE_URL = .*/SKYLINE_URL = 'https:\/\/$YOUR_SKYLINE_SERVER_FQDN'/g" \
     | sed -e 's/MEMCACHE_ENABLED = .*/MEMCACHE_ENABLED = True/g' \
     | sed -e "s/PANORAMA_DBUSER = .*/PANORAMA_DBUSER = 'root'/g" \
     | sed -e "s/PANORAMA_DBHOST = .*/PANORAMA_DBHOST = '$PANORAMA_DBHOST'/g" \
