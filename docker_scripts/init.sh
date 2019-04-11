@@ -17,9 +17,11 @@ cp /skyline/etc/skyline_docker.conf /etc/skyline/skyline.conf
 
 bash docker_scripts/configure.sh
 
+service apache2 restart
+
 /skyline/bin/horizon.d start
 /skyline/bin/analyzer.d start
 /skyline/bin/webapp.d start
 
 
-cat /var/log/skyline/*
+tail -f /var/log/skyline/*

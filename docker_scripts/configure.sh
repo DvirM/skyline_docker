@@ -77,7 +77,6 @@ a2enmod headers
 a2enmod rewrite
 sed -i 's/.*IfModule.*//g;s/.*LoadModule.*//g' /etc/apache2/sites-available/skyline.conf
 a2ensite skyline.conf
-service apache2 restart
 
 
 

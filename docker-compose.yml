@@ -30,11 +30,11 @@ services:
       context: . #current dir as build context
       target: run_skyline
     image: skyline:latest
-    volumes:
-      - .:/skyline
     depends_on:
       - mysql
       - redis-server
+    ports:
+      - "443:443"
 volumes:
   mysql:
     driver: local

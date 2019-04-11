@@ -8,5 +8,4 @@ RUN sh /skyline/scripts/install_environment.sh
 FROM base as run_skyline
 COPY . /skyline
 EXPOSE 1500 3306 2024 443
-RUN sh /skyline/docker_scripts/init.sh
-
+CMD ["sh", "-c", "/skyline/docker_scripts/init.sh"]
