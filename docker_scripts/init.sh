@@ -23,5 +23,5 @@ service apache2 restart
 /skyline/bin/analyzer.d start
 /skyline/bin/webapp.d start
 
-
+echo {$HOSTNAME}_skyline
 tail -f /var/log/skyline/*

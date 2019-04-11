@@ -15,7 +15,7 @@ services:
   redis-server:
     restart: always
     image: redis:4.0
-    container_name: redis-server
+    container_name: skyline_redis
     command: /bin/bash -c 'redis-server --appendonly yes'
     sysctls:
       - net.core.somaxconn=65535
@@ -29,7 +29,7 @@ services:
     build: 
       context: . #current dir as build context
       target: run_skyline
-    image: skyline:latest
+    image: skyline
     depends_on:
       - mysql
       - redis-server
