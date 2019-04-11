@@ -25,8 +25,6 @@ services:
       - ./config/redis/redis.conf:/etc/redis.conf
       - tmp:/tmp/
       - ./redis:/data
-    networks:
-      - mysqlnetwork
   skyline:
     build: 
       context: . #current dir as build context
@@ -36,9 +34,11 @@ services:
       - mysql
       - redis-server
     ports:
-      - "443:443"
+      - 443:443
     volumes:
       - tmp:/tmp/
+    environment:
+        PANORAMA_DBHOST: skyline_mysql
 volumes:
   tmp:
     driver: local
@@ -46,9 +46,6 @@ volumes:
     driver: local
   redis:
     driver: local
-networks:
-  mysqlnetwork:
-    driver: bridge
   
 
 

@@ -3,13 +3,19 @@ sudo apt-get install apache2 net-tools -y
 #### USER DEFINED VARIABLES ####
 YOUR_SERVER_IP_ADDRESS="$(ifconfig eth0 | grep -o "inet.*" | cut -d " " -f2)"                         # YOUR Skyline server public IP address
 YOUR_SKYLINE_SERVER_FQDN="$(hostname -f)"        # YOUR Skyline server FQDN
+
 YOUR_EMAIL="skyline@wix.com"                                # YOUR email address for the httpd server admin
 YOUR_OTHER_IP_ADDRESS="0.0.0.0"                          # YOUR current public IP address that you will be connecting from
+
 WEBAPP_AUTH_USER="admin"                                   # The username you want to use for http authentication
 WEBAPP_AUTH_USER_PASSWORD="$(echo {$HOSTNAME}_skyline)"    # The password you want to use for http authentication
-MYSQL_ROOT_PASSWORD="XXXXXXXXX"     # The MySQL root user password
-MYSQL_SKYLINE_PASSWORD="XXXXXXXXX"  # The Skyline DB user password
+
+PANORAMA_DBHOST="$(echo $PANORAMA_DBHOST)"
+MYSQL_ROOT_PASSWORD=""     # The MySQL root user password
+MYSQL_SKYLINE_PASSWORD=""  # The Skyline DB user password
 REDIS_PASSWORD="redis_skyline"       # The Redis password
+
+
 SKYLINE_RELEASE="v1.2.121"                 # The Skyline release to deploy
 
 
@@ -97,9 +103,11 @@ if [ ! -f /skyline/skyline/settings.py.original ]; then
     | sed -e 's/PANORAMA_ENABLED = .*/PANORAMA_ENABLED = True/g' \
     | sed -e "s/WEBAPP_AUTH_USER_PASSWORD = .*/WEBAPP_AUTH_USER_PASSWORD = '$WEBAPP_AUTH_USER_PASSWORD'/g" \
     | sed -e "s/WEBAPP_ALLOWED_IPS = .*/WEBAPP_ALLOWED_IPS = ['127.0.0.1', '$YOUR_OTHER_IP_ADDRESS']/g" \
-    | sed -e "s/SKYLINE_URL = .*/SKYLINE_URL = 'https:\/\/$YOUR_SKYLINE_SERVER_FQDN'/g" \
+    | sed -e "s/SKYLINE_URL = .*/SKYLINE_URL = 'https:\/\/$YOUR_SK YLINE_SERVER_FQDN'/g" \
     | sed -e 's/MEMCACHE_ENABLED = .*/MEMCACHE_ENABLED = True/g' \
-    | sed -e "s/PANORAMA_DBUSER = .*/PANORAMA_DBUSER = 'skyline'/g" \
+    | sed -e "s/PANORAMA_DBUSER = .*/PANORAMA_DBUSER = 'root'/g" \
+    | sed -e "s/PANORAMA_DBHOST = .*/PANORAMA_DBHOST = '$PANORAMA_DBHOST'/g" \
+    | sed -e "s/PANORAMA_DBPORT = .*/PANORAMA_DBPORT = '3306'/g" \
     | sed -e "s/HORIZON_IP = .*/HORIZON_IP = '127.0.0.1'/g" \
     | sed -e "s/PANORAMA_DBUSERPASS = .*/PANORAMA_DBUSERPASS = '$MYSQL_SKYLINE_PASSWORD'/g" > /skyline/skyline/settings.py
   if [ $? -ne 0 ]; then
