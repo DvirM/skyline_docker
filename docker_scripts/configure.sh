@@ -9,7 +9,7 @@ WEBAPP_AUTH_USER="admin"                                   # The username you wa
 WEBAPP_AUTH_USER_PASSWORD="$(echo {$HOSTNAME}_skyline)"    # The password you want to use for http authentication
 MYSQL_ROOT_PASSWORD="XXXXXXXXX"     # The MySQL root user password
 MYSQL_SKYLINE_PASSWORD="XXXXXXXXX"  # The Skyline DB user password
-REDIS_PASSWORD="XXXXXXXXX"       # The Redis password
+REDIS_PASSWORD="redis_skyline"       # The Redis password
 SKYLINE_RELEASE="v1.2.121"                 # The Skyline release to deploy
 
 
