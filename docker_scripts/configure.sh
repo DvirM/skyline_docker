@@ -45,6 +45,7 @@ HTTP_AUTH_FILE="/etc/apache2/.skyline_htpasswd"
 if [ ! -f $HTTP_AUTH_FILE ]; then
   echo "Creating http auth file - $HTTP_AUTH_FILE"
   sleep 1
+  echo "htpasswd -b -c $HTTP_AUTH_FILE $WEBAPP_AUTH_USER $WEBAPP_AUTH_USER_PASSWORD"
   htpasswd -b -c $HTTP_AUTH_FILE $WEBAPP_AUTH_USER $WEBAPP_AUTH_USER_PASSWORD
   if [ $? -ne 0 ]; then
     echo "error :: htpasswd failed to create $HTTP_AUTH_FILE"
@@ -105,29 +106,22 @@ if [ ! -f $WORKSPACE_DIR/skyline/settings.py.original ]; then
   
   # REDIS Settings 
   cat $WORKSPACE_DIR/skyline/settings.py.original \
-    | sed -e "s/REDIS_PASSWORD = .*/REDIS_PASSWORD = '$REDIS_PASSWORD'/g" > $WORKSPACE_DIR/skyline/settings.py
-
+    | sed -e "s/REDIS_PASSWORD = .*/REDIS_PASSWORD = '$REDIS_PASSWORD'/g" \
   # Webapp Settings 
-  cat $WORKSPACE_DIR/skyline/settings.py.original \
     | sed -e "s/WEBAPP_AUTH_USER = .*/WEBAPP_AUTH_USER = '$WEBAPP_AUTH_USER'/g" \
     | sed -e "s/WEBAPP_AUTH_USER_PASSWORD = .*/WEBAPP_AUTH_USER_PASSWORD = '$WEBAPP_AUTH_USER_PASSWORD'/g" \
-    | sed -e "s/WEBAPP_ALLOWED_IPS = .*/WEBAPP_ALLOWED_IPS = ['127.0.0.1', '$YOUR_OTHER_IP_ADDRESS']/g" > $WORKSPACE_DIR/skyline/settings.py
-  
+    | sed -e "s/WEBAPP_ALLOWED_IPS = .*/WEBAPP_ALLOWED_IPS = ['127.0.0.1', '$YOUR_OTHER_IP_ADDRESS']/g" \
   # PANORAMA DB Settings 
-  cat $WORKSPACE_DIR/skyline/settings.py.original \
     | sed -e "s/PANORAMA_ENABLED = .*/PANORAMA_ENABLED = $PANORAMA_ENABLED/g" \
     | sed -e "s/PANORAMA_DBHOST = .*/PANORAMA_DBHOST = '$PANORAMA_DBHOST'/g" \
     | sed -e "s/PANORAMA_DBPORT = .*/PANORAMA_DBPORT = '$PANORAMA_DBPORT'/g" \
     | sed -e "s/PANORAMA_DBUSERPASS = .*/PANORAMA_DBUSERPASS = '$PANORAMA_DBUSERPASS'/g" \
-    | sed -e "s/PANORAMA_DBUSER = .*/PANORAMA_DBUSER = '$PANORAMA_DBUSER'/g" > $WORKSPACE_DIR/skyline/settings.py
-    
+    | sed -e "s/PANORAMA_DBUSER = .*/PANORAMA_DBUSER = '$PANORAMA_DBUSER'/g" \
   # Other Settings 
-  cat $WORKSPACE_DIR/skyline/settings.py.original \
     | sed -e "s/SKYLINE_URL = .*/SKYLINE_URL = 'https:\/\/$YOUR_SKYLINE_SERVER_FQDN'/g" \
     | sed -e 's/MEMCACHE_ENABLED = .*/MEMCACHE_ENABLED = True/g' \
     | sed -e "s/HORIZON_IP = .*/HORIZON_IP = '127.0.0.1'/g" > $WORKSPACE_DIR/skyline/settings.py
   # | sed -e "s/HORIZON_IP = .*/HORIZON_IP = '$YOUR_SERVER_IP_ADDRESS'/g" \
-
 fi
 
 
