@@ -8,10 +8,8 @@ services:
       - 3307:3306
     environment:
       MYSQL_USER: 'root'
-      MYSQL_ROOT_PASSWORD: ''
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-    volumes:
-      - ./database:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: 'password'  # If mysql container password changes here - change it in the environment below
+      #MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
   redis-server:
     restart: always
     image: redis:latest
@@ -39,6 +37,7 @@ services:
       - tmp:/tmp/
     environment:
         PANORAMA_DBHOST: skyline_mysql
+        MYSQL_ROOT_PASSWORD: 'password' # If mysql container password changes above - change it here as well
 volumes:
   tmp:
     driver: local
