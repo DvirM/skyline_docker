@@ -137,10 +137,15 @@ echo "mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD" | s
 echo "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD" | sudo debconf-set-selections
 sudo apt-get install -y mysql-server
 
+echo "[mysqld]" >> /etc/mysql/my.cnf
+echo "bind-address = 0.0.0.0" >> /etc/mysql/my.cnf
+echo " Running Test: "
+sudo mysqld --verbose --help | grep bind-address
 
 ROOT_DB_ACCESS="sudo mysql -h $PANORAMA_DBHOST -P $PANORAMA_DBPORT -u root -p'$MYSQL_ROOT_PASSWORD'"
 
-sleep 5
+echo "$ROOT_DB_ACCESS -sss -e \"SHOW DATABASES\""
+$ROOT_DB_ACCESS -sss -e "SHOW DATABASES"
 
 SKYLINE_DB_PRESENT=$($ROOT_DB_ACCESS -sss -e "SHOW DATABASES" | grep -c skyline)
 if [ $SKYLINE_DB_PRESENT -eq 0 ]; then
