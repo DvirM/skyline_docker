@@ -9,7 +9,7 @@ mkdir -p /opt/skyline/panorama/check
 mkdir -p /opt/skyline/mirage/check
 mkdir -p /opt/skyline/crucible/check
 mkdir -p /opt/skyline/crucible/data
-mkdir -p /opt/skyline/ionosphere
+mkdir -p /opt/skyline/ionosphere/check
 mkdir -p /etc/skyline
 mkdir -p /tmp/skyline
 
@@ -22,5 +22,10 @@ systemctl restart memcached
 $WORKSPACE_DIR/bin/horizon.d start
 $WORKSPACE_DIR/bin/analyzer.d start
 $WORKSPACE_DIR/bin/webapp.d start
+
+# Panorama 
+$WORKSPACE_DIR/bin/panorama.d start
+$WORKSPACE_DIR/bin/ionosphere.d start
+$WORKSPACE_DIR/bin/luminosity.d start
 
 tail -f /var/log/skyline/*

@@ -12,11 +12,12 @@ WEBAPP_AUTH_USER="user"             # The username you want to use for http auth
 WEBAPP_AUTH_USER_PASSWORD="user"    # The password you want to use for http authentication
 
 PANORAMA_ENABLED='True'
-PANORAMA_DBHOST="$(echo $PANORAMA_DBHOST)"
+PANORAMA_DBHOST=$PANORAMA_DBHOST
 PANORAMA_DBPORT='3306'
-PANORAMA_DBUSER="root"
-MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-PANORAMA_DBUSERPASS=""
+PANORAMA_DBUSER="skyline"
+PANORAMA_DBUSERPASS='skyline'
+
+MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD #external to file
 
 REDIS_PASSWORD="redis_skyline"       # The Redis password
 
@@ -129,14 +130,12 @@ echo "mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWOR
 sudo apt-get install -y mysql-server
 
 echo "[mysqld]" >> /etc/mysql/my.cnf
-echo "bind-address = 0.0.0.0" >> /etc/mysql/my.cnf
+echo "bind-address = *" >> /etc/mysql/my.cnf
 echo " Running Test: "
 sudo mysqld --verbose --help | grep bind-address
 
-ROOT_DB_ACCESS="sudo mysql -h $PANORAMA_DBHOST -P $PANORAMA_DBPORT -u root -p'$MYSQL_ROOT_PASSWORD'"
+ROOT_DB_ACCESS="sudo mysql -h $PANORAMA_DBHOST -P $PANORAMA_DBPORT -u root -p$MYSQL_ROOT_PASSWORD"
 
-echo "$ROOT_DB_ACCESS -sss -e \"SHOW DATABASES\""
-$ROOT_DB_ACCESS -sss -e "SHOW DATABASES"
 
 SKYLINE_DB_PRESENT=$($ROOT_DB_ACCESS -sss -e "SHOW DATABASES" | grep -c skyline)
 if [ $SKYLINE_DB_PRESENT -eq 0 ]; then
@@ -156,8 +155,7 @@ SKYLINE_DB_USER_PRESENT=$($ROOT_DB_ACCESS -sss -e "SELECT User FROM mysql.user" 
 if [ $SKYLINE_DB_USER_PRESENT -eq 0 ]; then
   echo "Creating skyline MySQL user and permissions"
   sleep 1
-  $ROOT_DB_ACCESS -e "GRANT ALL ON skyline.* TO 'skyline'@'localhost' IDENTIFIED BY '$MYSQL_SKYLINE_PASSWORD'; \
-FLUSH PRIVILEGES;"
+  $ROOT_DB_ACCESS -e "CREATE USER 'skyline' IDENTIFIED BY '$PANORAMA_DBUSERPASS'; GRANT ALL PRIVILEGES ON skyline.* TO 'skyline'@'%'; FLUSH PRIVILEGES;"
   if [ $? -ne 0 ]; then
     echo "error :: failed to create skyline MySQL user"
     exit 1
@@ -167,5 +165,6 @@ else
   sleep 1
 fi
 
-
+echo "$ROOT_DB_ACCESS -sss -e \"SHOW DATABASES\""
+$ROOT_DB_ACCESS -sss -e "SHOW DATABASES"
 
