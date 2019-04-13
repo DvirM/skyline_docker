@@ -8,8 +8,8 @@ YOUR_SKYLINE_SERVER_FQDN="$(hostname -f)"                                      #
 YOUR_EMAIL="skyline@wix.com"                                                   # YOUR email address for the httpd server admin
 YOUR_OTHER_IP_ADDRESS="0.0.0.0"                                                # YOUR current public IP address that you will be connecting from
 
-WEBAPP_AUTH_USER="admin"             # The username you want to use for http authentication
-WEBAPP_AUTH_USER_PASSWORD="admin"    # The password you want to use for http authentication
+WEBAPP_AUTH_USER="user"             # The username you want to use for http authentication
+WEBAPP_AUTH_USER_PASSWORD="user"    # The password you want to use for http authentication
 
 PANORAMA_ENABLED='True'
 PANORAMA_DBHOST="$(echo $PANORAMA_DBHOST)"
