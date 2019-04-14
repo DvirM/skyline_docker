@@ -142,7 +142,7 @@ if [ ! -f $WORKSPACE_DIR/skyline/settings.py.original ]; then
     | sed -e "s/PANORAMA_DBUSER = .*/PANORAMA_DBUSER = '$PANORAMA_DBUSER'/g" \
     | sed -e "s/SKYLINE_URL = .*/SKYLINE_URL = 'https:\/\/$YOUR_SKYLINE_SERVER_FQDN'/g" \
     | sed -e 's/MEMCACHE_ENABLED = .*/MEMCACHE_ENABLED = True/g' \
-    | sed -e "s/HORIZON_IP = .*/HORIZON_IP = '127.0.0.1'/g" > $WORKSPACE_DIR/skyline/settings.py
+    | sed -e "s/HORIZON_IP = .*/HORIZON_IP = '$YOUR_SERVER_IP_ADDRESS'/g" > $WORKSPACE_DIR/skyline/settings.py
   # | sed -e "s/HORIZON_IP = .*/HORIZON_IP = '$YOUR_SERVER_IP_ADDRESS'/g" \
 fi
 
