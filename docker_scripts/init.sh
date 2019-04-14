@@ -17,7 +17,7 @@ cp $WORKSPACE_DIR/etc/skyline_docker.conf /etc/skyline/skyline.conf
 bash $WORKSPACE_DIR/docker_scripts/configure.sh
 
 service apache2 restart
-systemctl restart memcached
+service memcached start
 
 $WORKSPACE_DIR/bin/horizon.d start
 $WORKSPACE_DIR/bin/analyzer.d start
