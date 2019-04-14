@@ -25,6 +25,9 @@ SKYLINE_RELEASE="v1.2.121" # The Skyline release to deploy
 CARBON_HOST="carbon.example.com"
 CARBON_PORT="2003"
 
+PICKLE_PORT="2003"
+WORKER_PROCESSES="4"
+
 GRAPHITE_PROTOCOL="https"
 GRAPHITE_AUTH_HEADER="XXXXXXXXXXXXXXXXXXXXXX"
 GRAPHITE_HOST="graphite.example.com"
@@ -118,6 +121,8 @@ if [ ! -f $WORKSPACE_DIR/skyline/settings.py.original ]; then
   
   
   cat $WORKSPACE_DIR/skyline/settings.py.original \
+    | sed -e "s/PICKLE_PORT = .*/PICKLE_PORT = $PICKLE_PORT/g" \
+    | sed -e "s/WORKER_PROCESSES = .*/WORKER_PROCESSES = $WORKER_PROCESSES/g" \
     | sed -e "s/CARBON_HOST = .*/CARBON_HOST = '$CARBON_HOST'/g" \
     | sed -e "s/CARBON_PORT = .*/CARBON_PORT = $CARBON_PORT/g" \
     | sed -e "s/GRAPHITE_PROTOCOL = .*/GRAPHITE_PROTOCOL = '$GRAPHITE_PROTOCOL'/g" \
