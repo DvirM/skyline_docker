@@ -19,13 +19,13 @@ bash $WORKSPACE_DIR/docker_scripts/configure.sh
 service apache2 restart
 service memcached start
 
-$WORKSPACE_DIR/bin/horizon.d start
-$WORKSPACE_DIR/bin/analyzer.d start
-$WORKSPACE_DIR/bin/webapp.d start
+$WORKSPACE_DIR/bin/horizon.d restart
+$WORKSPACE_DIR/bin/analyzer.d restart
+$WORKSPACE_DIR/bin/webapp.d restart
 
 # Panorama 
-$WORKSPACE_DIR/bin/panorama.d start
-$WORKSPACE_DIR/bin/ionosphere.d start
-$WORKSPACE_DIR/bin/luminosity.d start
+$WORKSPACE_DIR/bin/panorama.d restart
+$WORKSPACE_DIR/bin/ionosphere.d restart
+$WORKSPACE_DIR/bin/luminosity.d restart
 
 tail -f /var/log/skyline/*
