@@ -18,10 +18,21 @@ PANORAMA_DBUSER="skyline"
 PANORAMA_DBUSERPASS='skyline'
 
 MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD #external to file
-
 REDIS_PASSWORD="redis_skyline"       # The Redis password
 
 SKYLINE_RELEASE="v1.2.121" # The Skyline release to deploy
+
+CARBON_HOST="carbon.example.com"
+CARBON_PORT="2003"
+
+GRAPHITE_PROTOCOL="https"
+GRAPHITE_AUTH_HEADER="XXXXXXXXXXXXXXXXXXXXXX"
+GRAPHITE_HOST="graphite.example.com"
+
+SLACK_ENABLED="True"
+SLACK_OPTS="{ 'bot_user_oauth_access_token': 'YOUR_slack_bot_user_oauth_access_token', 'channels': { 'skyline': ('#general',), 'skyline_test.alerters.test': ('#general',), }, 'icon_emoji': ':chart_with_upwards_trend:' }"
+SMTP_OPTS="{ 'sender': 'skyline@your_domain.com', 'recipients': { 'skyline': ['you@your_domain.com', 'them@your_domain.com'], 'skyline_test.alerters.test': ['you@your_domain.com'], }, 'default_recipient': ['you@your_domain.com'], 'embed-images': True }"
+
 #### END ####
 
 
@@ -107,6 +118,14 @@ if [ ! -f $WORKSPACE_DIR/skyline/settings.py.original ]; then
   
   
   cat $WORKSPACE_DIR/skyline/settings.py.original \
+    | sed -e "s/CARBON_HOST = .*/CARBON_HOST = '$CARBON_HOST'/g" \
+    | sed -e "s/CARBON_PORT = .*/CARBON_PORT = $CARBON_PORT/g" \
+    | sed -e "s/GRAPHITE_PROTOCOL = .*/GRAPHITE_PROTOCOL = '$GRAPHITE_PROTOCOL'/g" \
+    | sed -e "s/GRAPHITE_AUTH_HEADER = .*/GRAPHITE_AUTH_HEADER = '$GRAPHITE_AUTH_HEADER'/g" \
+    | sed -e "s/GRAPHITE_HOST = .*/GRAPHITE_HOST = '$GRAPHITE_HOST'/g" \
+    | sed -e "s/SLACK_ENABLED = .*/SLACK_ENABLED = $SLACK_ENABLED/g" \
+    | sed -e "s/^SLACK_OPTS = .*/SLACK_OPTS = $SLACK_OPTS/g" \
+    | sed -e "s/^SMTP_OPTS = .*/SMTP_OPTS = $SMTP_OPTS/g" \
     | sed -e "s/REDIS_PASSWORD = .*/REDIS_PASSWORD = '$REDIS_PASSWORD'/g" \
     | sed -e "s/WEBAPP_AUTH_USER = .*/WEBAPP_AUTH_USER = '$WEBAPP_AUTH_USER'/g" \
     | sed -e "s/WEBAPP_AUTH_USER_PASSWORD = .*/WEBAPP_AUTH_USER_PASSWORD = '$WEBAPP_AUTH_USER_PASSWORD'/g" \
