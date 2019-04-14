@@ -9,4 +9,4 @@ FROM base as run_skyline
 ENV WORKSPACE_DIR=/skyline
 COPY . $WORKSPACE_DIR
 EXPOSE 1500 3306 2024 443
-CMD ["sh", "-c", "/skyline/docker_scripts/init.sh"]
+CMD ["bash", "-c", "/skyline/docker_scripts/init.sh"]

@@ -1,3 +1,6 @@
+echo "$WORKSPACE_DIR/config/configuration_file"
+source $WORKSPACE_DIR/config/configuration_file
+
 cd $WORKSPACE_DIR
 echo "Workspace directory:"
 echo $PWD 
@@ -14,6 +17,7 @@ mkdir -p /etc/skyline
 mkdir -p /tmp/skyline
 
 cp $WORKSPACE_DIR/etc/skyline_docker.conf /etc/skyline/skyline.conf
+
 bash $WORKSPACE_DIR/docker_scripts/configure.sh
 
 service apache2 restart

@@ -1,0 +1,42 @@
+#### USER DEFINED VARIABLES ####
+
+# Server configuration 
+export WORKSPACE_DIR=$WORKSPACE_DIR
+export YOUR_SERVER_IP_ADDRESS="$(ifconfig eth0 | grep -o "inet.*" | cut -d " " -f2 | cut -d ":" -f2)"  # YOUR Skyline server public IP address
+export YOUR_SKYLINE_SERVER_FQDN="$(hostname -f)"                                                       # YOUR Skyline server FQDN
+export YOUR_OTHER_IP_ADDRESS="0.0.0.0"                                                                 # YOUR current public IP address that you will be connecting from 
+export YOUR_EMAIL="skyline@example.com"    # YOUR email address for the httpd server admin
+export SKYLINE_RELEASE="v1.2.121" # The Skyline release to deploy
+
+# Webapp login information 
+export WEBAPP_AUTH_USER="user"             # The username you want to use for http authentication
+export WEBAPP_AUTH_USER_PASSWORD="user"    # The password you want to use for http authentication
+
+# PANORAMA configuration (Mysql DB info)
+export PANORAMA_ENABLED='True'             # Enable PANORAMA - only after DB is up
+export PANORAMA_DBHOST=$PANORAMA_DBHOST    # Init from env - Mysql DB ip / host name
+export PANORAMA_DBPORT='3306'              # Mysql DB Port 
+export PANORAMA_DBUSER="skyline"           # User used to connect to DB 
+export PANORAMA_DBUSERPASS='skyline'.      # User password
+export MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD # Init from env - Root password for Mysql DB
+
+# Redis authentication
+export REDIS_PASSWORD="redis_skyline"           # The Redis password
+
+# Carbon configuration
+export CARBON_HOST="carbon.example.com"
+export CARBON_PORT="2003"
+export PICKLE_PORT="2003" # Port to get metrics from Carbon
+export WORKER_PROCESSES="4"
+
+# Graphite configuration
+export GRAPHITE_PROTOCOL="https"
+export GRAPHITE_AUTH_HEADER="XXXXXXXXXXXXXXXXXXXXXX"
+export GRAPHITE_HOST="graphite.example.com"
+
+# Alerting configuraitons 
+export SLACK_ENABLED="True"
+export SLACK_OPTS="{ 'bot_user_oauth_access_token': 'YOUR_slack_bot_user_oauth_access_token', 'channels': { 'skyline': ('#general',), 'skyline_test.alerters.test': ('#general',), }, 'icon_emoji': ':chart_with_upwards_trend:' }"
+export SMTP_OPTS="{ 'sender': 'skyline@your_domain.com', 'recipients': { 'skyline': ['you@your_domain.com', 'them@your_domain.com'], 'skyline_test.alerters.test': ['you@your_domain.com'], }, 'default_recipient': ['you@your_domain.com'], 'embed-images': True }"
+
+#### END ####
