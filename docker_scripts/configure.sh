@@ -88,6 +88,7 @@ if [ ! -f $WORKSPACE_DIR/skyline/settings.py.original ]; then
     | sed -e "s/GRAPHITE_PROTOCOL = .*/GRAPHITE_PROTOCOL = '$GRAPHITE_PROTOCOL'/g" \
     | sed -e "s/GRAPHITE_AUTH_HEADER = .*/GRAPHITE_AUTH_HEADER = '$GRAPHITE_AUTH_HEADER'/g" \
     | sed -e "s/GRAPHITE_HOST = .*/GRAPHITE_HOST = '$GRAPHITE_HOST'/g" \
+    | sed -e "s/GRAPHITE_CUSTOM_HEADERS = .*/GRAPHITE_CUSTOM_HEADERS = $GRAPHITE_CUSTOM_HEADERS/g" \
     | sed -e "s/SLACK_ENABLED = .*/SLACK_ENABLED = $SLACK_ENABLED/g" \
     | sed -e "s/^SLACK_OPTS = .*/SLACK_OPTS = $SLACK_OPTS/g" \
     | sed -e "s/^SMTP_OPTS = .*/SMTP_OPTS = $SMTP_OPTS/g" \

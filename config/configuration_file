@@ -32,6 +32,7 @@ export WORKER_PROCESSES="4"
 # Graphite configuration
 export GRAPHITE_PROTOCOL="https"
 export GRAPHITE_AUTH_HEADER="XXXXXXXXXXXXXXXXXXXXXX"
+export GRAPHITE_CUSTOM_HEADERS="{'Authorization' : GRAPHITE_AUTH_HEADER}"
 export GRAPHITE_HOST="graphite.example.com"
 
 # Alerting configuraitons 
